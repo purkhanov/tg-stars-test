@@ -18,6 +18,14 @@
 
     tg.ready()
 
+    tg.onEvent('invoiceClosed', (e) => {
+      console.log(e, "invoiceClosed")
+    })
+
+    tg.onEvent('invoice_closed', (e) => {
+      console.log(e, "invoice_closed")
+    })
+
     buyBtn.addEventListener('click', async () => {
       const invoiceLink = "https://t.me/$SxkYLYbHAUmYEAAAETgIA_n0rs8" // SxkYLYbHAUmYEAAAETgIA_n0rs8
 
