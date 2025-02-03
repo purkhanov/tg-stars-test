@@ -9,7 +9,7 @@
 <body>
   <input id="qty" type="number" value="1" min="1">
   <button id="buy">Buy</button>
-  <p id="out">Out</p>
+  <p id="out"></p>
 
   <script>
     const tg = window.Telegram.WebApp
@@ -17,16 +17,9 @@
     const output = document.getElementById('out')
 
     buyBtn.addEventListener('click', async () => {
-      const qty = document.getElementById('qty').value
-      
+   
       try {
-        const response = await fetch('https://3d74-149-27-35-161.ngrok-free.app/invoice-link')
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const data = await response.json()
-        const invoiceLink = data.result
+        const invoiceLink = "https://t.me/$Qj06CYbHAUlHEAAA5YFrWb8iN0g"
 
         if (tg.isVersionAtLeast('6.1')) {
           tg.openInvoice(invoiceLink)
