@@ -24,19 +24,14 @@
       try {
         if (tg.isVersionAtLeast('6.1')) {
           tg.openInvoice(invoiceLink)
-            .then((result) => {
-              if (result.status === "paid") {
+            .then(result => {
                 output.innerText = "Payment successful! " + result
-                console.log("Payment successful!");
-              } else {
-                output.innerText = "Payment failed or was cancelled. " + result
-                console.log("Payment failed or was cancelled.")
-              }
+                console.log("Payment successful!")
             })
-            .catch((error) => {
+            .catch(error => {
               output.innerText = "Error opening invoice: " + error.message
               console.error("Error opening invoice:", error)
-            });
+            })
         } else {
           output.innerText = "openInvoice is not supported in this version of Telegram."
           console.error("openInvoice is not supported in this version of Telegram.")
