@@ -18,6 +18,8 @@
 
     tg.ready()
 
+    console.log(tg.initData, 'init data')
+
     tg.onEvent('invoiceClosed', (e) => {
       console.log(e, "invoiceClosed")
       console.log(e.status, "invoice status")
