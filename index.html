@@ -19,6 +19,7 @@
     tg.ready()
 
     console.log(tg.initData, 'init data')
+    console.log(tg.initDataUnsafe, 'init data unsafe')
 
     tg.onEvent('invoiceClosed', (e) => {
       console.log(e, "invoiceClosed")
