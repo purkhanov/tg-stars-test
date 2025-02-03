@@ -20,10 +20,7 @@
 
     tg.onEvent('invoiceClosed', (e) => {
       console.log(e, "invoiceClosed")
-    })
-
-    tg.onEvent('invoice_closed', (e) => {
-      console.log(e, "invoice_closed")
+      console.log(e.status, "invoice status")
     })
 
     buyBtn.addEventListener('click', async () => {
