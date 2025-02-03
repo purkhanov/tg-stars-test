@@ -9,10 +9,12 @@
 <body>
   <input id="qty" type="number" value="1" min="1">
   <button id="buy">Buy</button>
+  <p id="out"></p>
 
   <script>
     const tg = window.Telegram.WebApp
     const buyBtn = document.getElementById('buy')
+    const output = document.getElementById('out')
 
     buyBtn.addEventListener('click', async () => {
       const qty = document.getElementById('qty').value
@@ -28,24 +30,25 @@
 
         if (tg.isVersionAtLeast('6.1')) {
           tg.openInvoice(invoiceLink)
-            .then((result) => {
-              if (result.status === "paid") {
-                console.log("Payment successful!")
-              } else {
-                console.log("Payment failed or was cancelled.")
-              }
+            .then(result => {
+              console.log("Payment!")
+              output.innerText = result
             })
-            .catch((error) => {
-              console.error("Error opening invoice:", error);
+            .catch(error => {
+              console.error("Error opening invoice:", error)
+              output.innerText = error
             })
         } else {
           console.error("openInvoice is not supported in this version of Telegram.")
           window.open(invoiceLink, "_blank")
+          output.innerText = "openInvoice is not supported in this version of Telegram."
         }
       } catch (error) {
-        console.error("Error fetching invoice link:", error);
+        console.error("Error fetching invoice link:", error)
+        output.innerText = error
       }
     })
   </script>
+
 </body>
 </html>
