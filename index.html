@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Telegram Mini App</title>
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
 </head>
 <body>
@@ -12,36 +12,41 @@
   <p id="out"></p>
 
   <script>
-    const tg = window.Telegram.WebApp
+    const tg = window.Telegram.WebApp;
     const buyBtn = document.getElementById('buy')
     const output = document.getElementById('out')
 
-    buyBtn.addEventListener('click', async () => {
-   
-      try {
-        const invoiceLink = "https://t.me/$Qj06CYbHAUlHEAAA5YFrWb8iN0g"
+    tg.ready()
 
+    buyBtn.addEventListener('click', async () => {
+      const invoiceLink = "https://t.me/$Qj06CYbHAUlHEAAA5YFrWb8iN0g"
+
+      try {
         if (tg.isVersionAtLeast('6.1')) {
           tg.openInvoice(invoiceLink)
-            .then(result => {
-              console.log("Payment!")
-              output.innerText = result
+            .then((result) => {
+              if (result.status === "paid") {
+                output.innerText = "Payment successful! " + result
+                console.log("Payment successful!");
+              } else {
+                output.innerText = "Payment failed or was cancelled. " + result
+                console.log("Payment failed or was cancelled.")
+              }
             })
-            .catch(error => {
+            .catch((error) => {
+              output.innerText = "Error opening invoice: " + error.message
               console.error("Error opening invoice:", error)
-              output.innerText = error
-            })
+            });
         } else {
+          output.innerText = "openInvoice is not supported in this version of Telegram."
           console.error("openInvoice is not supported in this version of Telegram.")
           window.open(invoiceLink, "_blank")
-          output.innerText = "openInvoice is not supported in this version of Telegram."
         }
       } catch (error) {
+        output.innerText = "Error: " + error.message
         console.error("Error fetching invoice link:", error)
-        output.innerText = error
       }
     })
   </script>
-
 </body>
 </html>
